@@ -1,48 +1,90 @@
 #include "main.h"
 /**
-* print_int - function that prints an integer
-* @i: integer to print
-* Descriptions: prints digit with _putchar
-* Return: size the output text
-*/
-int print_int(va_list i)
+ * print_i - prints integer
+ * @args: argument to print
+ * Return: integer
+ */
+int print_i(va_list args)
 {
-	int len, powten, j, digit, n, count = 0, num;
+	int n = va_arg(args, int);
+	int num, last = n % 10, digit, exp = 1;
+	int  i = 1;
 
-	n = va_arg(i, int);
-	if (n != 0)
+	n = n / 10;
+	num = n;
+
+	if (last < 0)
 	{
-		if (n < 0)
+		_putchar('-');
+		num = -num;
+		n = -n;
+		last = -last;
+		i++;
+	}
+	if (num > 0)
+	{
+		while (num / 10 != 0)
 		{
-			_putchar('-');
-			count++;
+			exp = exp * 10;
+			num = num / 10;
 		}
 		num = n;
-		len = 0;
-		while (num != 0)
+		while (exp > 0)
 		{
-			num /= 10;
-			len++;
-		}
-		powten = 1;
-		for (j = 1; j <= len - 1; j++)
-			powten *= 10;
-		for (j = 1; j <= len; j++)
-		{
-			digit = n / powten;
-			if (n < 0)
-				_putchar((digit * -1) + 48);
-			else
-				_putchar(digit + '0');
-			count++;
-			n -= digit * powten;
-			powten /= 10;
+			digit = num / exp;
+			_putchar(digit + '0');
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
 		}
 	}
-	else
+	_putchar(last + '0');
+
+	return (i);
+}
+
+/**
+ * print_d - prints decimal
+ * @args: argument to print
+ * Return: integer
+ */
+
+int print_d(va_list args)
+{
+	int n = va_arg(args, int);
+	int num, last = n % 10, digit;
+	int  i = 1;
+	int exp = 1;
+
+	n = n / 10;
+	num = n;
+
+	if (last < 0)
 	{
-		_putchar('0');
-		return (1);
+		_putchar('-');
+		num = -num;
+		n = -n;
+		last = -last;
+		i++;
 	}
-	return (count);
+	if (num > 0)
+	{
+		while (num / 10 != 0)
+		{
+			exp = exp * 10;
+			num = num / 10;
+		}
+		num = n;
+		while (exp > 0)
+		{
+			digit = num / exp;
+			_putchar(digit + '0');
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
+		}
+	}
+	_putchar(last + '0');
+
+	return (i);
 }

@@ -1,24 +1,29 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
 /**
- * print_string - writes the character c to stdout
- * @s: The string to print
- *
- * Return: 1.
+ * print_s - print a string.
+ * @val: argumen t.
+ * Return: the length of the string.
  */
-int print_string(va_list s)
-{
-	char *my_string;
-	int  i = 0;
 
-	my_string = va_arg(s, char *);
-	if (my_string == NULL)
-		my_string = "(null)";
-	while (my_string[i])
+int print_s(va_list val)
+{
+	char *s;
+	int i, len;
+
+	s = va_arg(val, char *);
+	if (s == NULL)
 	{
-		_putchar(my_string[i]);
-		i++;
+		s = "(null)";
+		len = _strlen(s);
+		for (i = 0; i < len; i++)
+			_putchar(s[i]);
+		return (len);
 	}
-	return (i);
+	else
+	{
+		len = _strlen(s);
+		for (i = 0; i < len; i++)
+			_putchar(s[i]);
+		return (len);
+	}
 }
